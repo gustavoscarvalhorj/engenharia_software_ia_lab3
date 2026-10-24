@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Paisagem do cerrado em Goiás">
+  <defs><linearGradient id="g" x2="0" y2="1"><stop stop-color="#f3b56f"/><stop offset="1" stop-color="#ead5a5"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#g)"/>
+  <circle cx="650" cy="95" r="60" fill="#fff0bd"/>
+  <path d="M0 315Q210 270 430 330T800 300V500H0Z" fill="#858f49"/>
+  <path d="M0 380Q190 330 420 390T800 355V500H0Z" fill="#5d713d"/>
+  <path d="M170 330v-130h18v130m-70-120q60-58 126 0Z" fill="#394e35"/>
+</svg>

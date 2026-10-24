@@ -1,0 +1,25 @@
+---
+description: Obriga todas as atividades do projeto a seguir a arquitetura definida em aula 2/arch.md
+alwaysApply: true
+---
+
+# Arquitetura obrigatória da PoC
+
+Antes de planejar, criar, alterar, revisar ou testar qualquer artefato deste projeto:
+
+1. Leia integralmente `arch.md`.
+2. Trate esse documento como a fonte de verdade arquitetural e cumpra explicitamente:
+   - escopo, premissas e itens fora do escopo;
+   - regras de negócio e invariantes;
+   - estilo arquitetural, fronteiras, dependências e organização de código;
+   - contratos HTTP, rotas, estados obrigatórios da interface e jornada principal;
+   - decisões de frontend, segurança, resiliência, observabilidade e acessibilidade;
+   - estratégia e critérios mínimos de testes;
+   - ADRs e restrições de evolução.
+3. Não introduza tecnologia, fluxo, integração, persistência, dado ou responsabilidade que contrarie o documento.
+4. Preserve a separação entre `hotel-search`, `checkout`, `shared`, `core` e `mocks`; páginas não devem depender de detalhes do MSW.
+5. Ao tomar uma decisão não coberta pelo documento, escolha a alternativa mais simples compatível com a PoC e registre qualquer decisão arquitetural relevante.
+6. Se o pedido conflitar com `arch.md`, informe objetivamente o conflito antes de implementar e solicite uma decisão explícita.
+7. Se uma pendência da seção 13 afetar materialmente a implementação, não presuma silenciosamente: peça esclarecimento.
+
+Ao concluir mudanças, verifique a conformidade com `arch.md` e valide build, lint e testes aplicáveis.

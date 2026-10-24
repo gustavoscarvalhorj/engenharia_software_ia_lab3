@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Praia e montanhas do Rio de Janeiro">
+  <defs><linearGradient id="s" x2="0" y2="1"><stop stop-color="#8bd0da"/><stop offset="1" stop-color="#e8d9ba"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#s)"/>
+  <path d="M0 310 Q170 250 330 315 T800 290V500H0Z" fill="#388b95"/>
+  <path d="M0 360 Q190 300 390 360 T800 340V500H0Z" fill="#f3ddae"/>
+  <path d="M500 0 Q590 90 620 300H380Q410 100 500 0Z" fill="#315f55"/>
+  <circle cx="125" cy="105" r="52" fill="#ffd78a"/>
+</svg>

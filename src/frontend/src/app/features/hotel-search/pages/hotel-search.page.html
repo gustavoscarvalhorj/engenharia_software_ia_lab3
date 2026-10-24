@@ -1,0 +1,134 @@
+<section class="hero" aria-labelledby="search-title">
+  <div>
+    <p class="eyebrow">Sua próxima pausa começa aqui</p>
+    <h1 id="search-title">Encontre uma estadia para chamar de sua.</h1>
+    <p class="lead">Hotéis selecionados no Rio, Goiás e Brasília.</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="field destination">
+      <label for="destination">Destino</label>
+      <select id="destination" formControlName="destination">
+        <option value="">Selecione um destino</option>
+        @for (destination of destinations(); track destination.code) {
+          <option [value]="destination.code">{{ destination.name }}</option>
+        }
+      </select>
+      @if (hasError('destination')) {
+        <small class="field-error">Escolha um dos destinos disponíveis.</small>
+      }
+      @if (destinationsError()) {
+        <small class="field-error">
+          Não foi possível carregar os destinos.
+          <button class="link-button" type="button" (click)="reloadDestinations()">Tentar novamente</button>
+        </small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="checkIn">Entrada</label>
+      <input id="checkIn" type="date" formControlName="checkIn" [min]="today" />
+      @if (hasError('checkIn')) {
+        <small class="field-error">Informe hoje ou uma data futura.</small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="checkOut">Saída</label>
+      <input id="checkOut" type="date" formControlName="checkOut" [min]="today" />
+      @if (hasError('checkOut')) {
+        <small class="field-error">Informe uma data de saída válida.</small>
+      } @else if (form.hasError('invalidStayPeriod') && form.controls.checkOut.touched) {
+        <small class="field-error">A saída deve ser posterior à entrada.</small>
+      }
+    </div>
+
+    <div class="field compact">
+      <label for="adults">Adultos</label>
+      <input id="adults" type="number" min="1" step="1" formControlName="adults" />
+      @if (hasError('adults')) {
+        <small class="field-error">Mínimo de 1 adulto.</small>
+      }
+    </div>
+
+    <div class="field compact">
+      <label for="children">Crianças</label>
+      <input id="children" type="number" min="0" step="1" formControlName="children" />
+      @if (hasError('children')) {
+        <small class="field-error">O valor mínimo é 0.</small>
+      }
+    </div>
+
+    <button class="primary search-button" type="submit" [disabled]="state().kind === 'loading'">
+      Buscar hotéis
+    </button>
+  </form>
+</section>
+
+<section class="results" aria-live="polite" aria-busy="{{ state().kind === 'loading' }}">
+  @switch (state().kind) {
+    @case ('initial') {
+      <div class="welcome-state">
+        <span aria-hidden="true">✦</span>
+        <p>Preencha os dados acima para descobrir seu próximo hotel.</p>
+      </div>
+    }
+    @case ('loading') {
+      <div class="status-card">
+        <span class="spinner" aria-hidden="true"></span>
+        <p>Buscando as melhores opções...</p>
+      </div>
+    }
+    @case ('empty') {
+      <div class="status-card">
+        <h2>Nenhum hotel encontrado</h2>
+        <p>Tente ajustar o destino ou as datas da viagem.</p>
+      </div>
+    }
+    @case ('error') {
+      <div class="status-card error" role="alert">
+        <h2>Algo não saiu como esperado</h2>
+        @if (errorState(); as error) {
+          <p>{{ error.message }}</p>
+          @if (error.correlationId; as correlationId) {
+            <small>Referência: {{ correlationId }}</small>
+          }
+        }
+        <button class="secondary" type="button" (click)="retry()">Tentar novamente</button>
+      </div>
+    }
+    @case ('results') {
+      <div class="results-heading">
+        <div>
+          <p class="eyebrow">Opções para você</p>
+          <h2>{{ resultHotels().length }} hotéis encontrados</h2>
+        </div>
+      </div>
+      <div class="hotel-grid">
+        @for (hotel of resultHotels(); track hotel.id) {
+          <article class="hotel-card">
+            <img [src]="hotel.imageUrl" [alt]="'Vista de ' + hotel.name" width="640" height="400" />
+            <div class="hotel-content">
+              <div class="hotel-title">
+                <h3>{{ hotel.name }}</h3>
+                <span aria-label="Avaliação {{ hotel.rating }} de 5">★ {{ hotel.rating | number: '1.1-1' }}</span>
+              </div>
+              <ul class="amenities" aria-label="Comodidades">
+                @for (amenity of hotel.amenities; track amenity) {
+                  <li>{{ amenity }}</li>
+                }
+              </ul>
+              <div class="hotel-footer">
+                <p>
+                  <strong>{{ hotel.nightlyPrice.amount | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</strong>
+                  <span>/ noite</span>
+                </p>
+                <button class="primary" type="button" (click)="selectHotel(hotel)">Escolher</button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  }
+</section>

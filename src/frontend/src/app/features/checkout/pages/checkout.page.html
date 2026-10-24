@@ -1,0 +1,95 @@
+<main class="checkout-shell">
+  <a class="back-link" routerLink="/hotels" [queryParams]="searchQuery()">← Voltar aos hotéis</a>
+
+  @switch (state().kind) {
+    @case ('loading') {
+      <section class="status" aria-live="polite" aria-busy="true">
+        <span class="spinner" aria-hidden="true"></span>
+        <h1>Preparando seu resumo...</h1>
+      </section>
+    }
+    @case ('invalid') {
+      <section class="status" role="alert">
+        <p class="eyebrow">Seleção expirada</p>
+        <h1>Precisamos começar uma nova busca.</h1>
+        <p>O hotel ou os dados da estadia não estão mais disponíveis.</p>
+        <a class="primary-link" routerLink="/hotels">Buscar hotéis</a>
+      </section>
+    }
+    @case ('error') {
+      <section class="status" role="alert">
+        <p class="eyebrow">Falha temporária</p>
+        <h1>Não foi possível carregar o resumo.</h1>
+        @if (errorState(); as error) {
+          @if (error.correlationId; as correlationId) {
+            <small>Referência: {{ correlationId }}</small>
+          }
+        }
+        <button type="button" (click)="retry()">Tentar novamente</button>
+      </section>
+    }
+    @case ('ready') {
+      @if (draft(); as booking) {
+      <header>
+        <p class="eyebrow">Revise sua estadia</p>
+        <h1>Está quase tudo pronto.</h1>
+        <p>Confira os dados abaixo. Esta PoC não confirma nem cobra reservas.</p>
+      </header>
+
+      <div class="checkout-grid">
+        <article class="hotel-summary">
+          <img
+            [src]="booking.hotel.imageUrl"
+            [alt]="'Vista de ' + booking.hotel.name"
+            width="800"
+            height="500"
+          />
+          <div>
+            <span class="rating">★ {{ booking.hotel.rating }}</span>
+            <h2>{{ booking.hotel.name }}</h2>
+            <ul>
+              @for (amenity of booking.hotel.amenities; track amenity) {
+                <li>{{ amenity }}</li>
+              }
+            </ul>
+          </div>
+        </article>
+
+        <aside class="booking-summary" aria-label="Resumo de preço">
+          <h2>Resumo da estadia</h2>
+          <dl>
+            <div>
+              <dt>Entrada</dt>
+              <dd>{{ formatDate(booking.criteria.checkIn) }}</dd>
+            </div>
+            <div>
+              <dt>Saída</dt>
+              <dd>{{ formatDate(booking.criteria.checkOut) }}</dd>
+            </div>
+            <div>
+              <dt>Hóspedes</dt>
+              <dd>
+                {{ booking.criteria.adults }} adulto(s),
+                {{ booking.criteria.children }} criança(s)
+              </dd>
+            </div>
+            <div>
+              <dt>Diária</dt>
+              <dd>{{ booking.hotel.nightlyPrice.amount | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</dd>
+            </div>
+            <div>
+              <dt>{{ booking.nights }} noite(s)</dt>
+              <dd>{{ booking.total.amount | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</dd>
+            </div>
+          </dl>
+          <div class="total">
+            <span>Total estimado</span>
+            <strong>{{ booking.total.amount | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</strong>
+          </div>
+          <p class="disclaimer">Valor demonstrativo, sem taxas. Nenhuma reserva será efetivada.</p>
+        </aside>
+      </div>
+      }
+    }
+  }
+</main>

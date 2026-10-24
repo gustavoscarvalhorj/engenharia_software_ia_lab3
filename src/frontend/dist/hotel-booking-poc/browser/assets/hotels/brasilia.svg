@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Arquitetura modernista de Brasília">
+  <defs><linearGradient id="b" x2="0" y2="1"><stop stop-color="#8fc5d7"/><stop offset="1" stop-color="#e9ded0"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#b)"/>
+  <circle cx="130" cy="100" r="52" fill="#ffdda0"/>
+  <rect y="350" width="800" height="150" fill="#66856d"/>
+  <path d="M150 355Q240 210 330 355Zm320 0Q560 210 650 355Z" fill="#f2f1e9"/>
+  <path d="M390 130h20v225h-20zM355 170q45-45 90 0v18h-90z" fill="#e9eee9"/>
+</svg>
