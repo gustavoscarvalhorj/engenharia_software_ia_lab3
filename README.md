@@ -26,11 +26,11 @@ corepack yarn build
 
 ## Arquitetura
 
-- `src/app/features/hotel-search`: domínio, acesso HTTP e página da busca.
-- `src/app/features/checkout`: domínio, acesso HTTP e página de revisão.
-- `src/app/shared`: contratos e validadores reutilizáveis, sem dependência de features.
-- `src/app/core`: infraestrutura transversal de HTTP e observabilidade.
-- `src/app/mocks`: handlers MSW e fixtures em memória.
+- `src/frontend/src/app/features/hotel-search`: domínio, acesso HTTP e página da busca.
+- `src/frontend/src/app/features/checkout`: domínio, acesso HTTP e página de revisão.
+- `src/frontend/src/app/shared`: contratos e validadores reutilizáveis, sem dependência de features.
+- `src/frontend/src/app/core`: infraestrutura transversal de HTTP e observabilidade.
+- `src/frontend/src/app/mocks`: handlers MSW e fixtures em memória.
 
 As rotas `/hotels` e `/checkout` são carregadas de forma preguiçosa. A seleção transitória é serializada na URL; o checkout consulta novamente o hotel por ID. Um acesso inválido ou expirado redireciona a jornada para uma nova busca.
 

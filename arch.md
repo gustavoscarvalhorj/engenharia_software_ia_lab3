@@ -89,10 +89,10 @@ Comandos Yarn e Angular CLI são executados a partir de `/src/frontend`. A raiz 
 
 ### Organização lógica
 
-O caminho abaixo é relativo a `/src/frontend`.
+O caminho abaixo é relativo à raiz do repositório.
 
 ```text
-src/app/
+/src/frontend/src/app/
 ├── core/
 │   ├── api/
 │   ├── errors/

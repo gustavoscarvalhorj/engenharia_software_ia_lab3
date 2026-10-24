@@ -24,7 +24,7 @@ Segurança e observabilidade devem estar sempre entre os três principais atribu
 
 ## Estrutura obrigatória
 
-- Mantenha todo o frontend Angular em `/src/app/`.
+- Mantenha todo o frontend Angular em `/src/frontend/src/app/`.
 - Mantenha todo o backend .NET, APIs, projetos, testes e solução em `/src/apis/`.
 - Defina a infraestrutura local em `/src/docker-compose.yaml`.
 - Centralize no Compose APIs e dependências locais, como bancos, filas, cache e observabilidade.
