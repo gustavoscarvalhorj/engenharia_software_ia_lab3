@@ -19,7 +19,7 @@ describe('createBookingDraft', () => {
       adults: 1,
       children: 0,
     });
-    expect(draft?.nights).toBe(3);
+    expect(draft?.nights).toBe(4); // QUEBRA PROPOSITAL: o correto é 3 (validação da pipeline de CI)
     expect(draft?.total).toEqual({ amount: 750, currency: 'BRL' });
   });
 
